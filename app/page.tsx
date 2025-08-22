@@ -193,7 +193,7 @@ export default function Portfolio() {
                   asChild
                 >
                   <Link
-                    href="https://drive.google.com/file/d/1la5TwyWn4DwiockM_gaBxdsHWcvCiEGO/view?usp=sharing"
+                    href="https://drive.google.com/file/d/12oqKip_9zEhFOyzLyGoEC9DuQYxd9725/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
@@ -256,12 +256,30 @@ export default function Portfolio() {
             <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2">
               {[
                 {
+                  title: "🌟 Personal Portfolio Website",
+                  description:
+                    "A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS. Features vibrant animations, glassmorphism effects, and a comprehensive showcase of projects, experience, and certifications.",
+                  tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+                  gradient: "from-pink-500 to-purple-500",
+                  hoverGradient: "from-pink-600 to-purple-600",
+                  icon: Rocket,
+                  features: [
+                    "🎨 Modern UI with vibrant gradients and animations",
+                    "📱 Fully responsive design across all devices",
+                    "⚡ Built with Next.js 15 and React 19",
+                    "🎭 Interactive mouse follower and hover effects",
+                  ],
+                  githubLink: "https://github.com/jobayertalha/Personal-portfolio-site",
+                  demoLink: null,
+                  image: "/colorful-gradient-portfolio.png",
+                },
+                {
                   title: "Cross-Platform GUI Component Generator",
                   description:
                     "🧪 A C++ project demonstrating Abstract Factory Design Pattern to create cross-platform GUI components with comprehensive GTest coverage",
                   tags: ["C++17", "GoogleTest", "Design Patterns", "OOP"],
-                  gradient: "from-purple-500 to-pink-500",
-                  hoverGradient: "from-purple-600 to-pink-600",
+                  gradient: "from-purple-500 to-indigo-500",
+                  hoverGradient: "from-purple-600 to-indigo-600",
                   icon: Code,
                   features: [
                     "🏭 Abstract Factory Pattern Implementation",
