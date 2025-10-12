@@ -15,88 +15,78 @@ import {
   Phone,
   Briefcase,
   ChevronDown,
-  Sparkles,
   Download,
   FileText,
   Send,
   MessageCircle,
   Heart,
-  Coffee,
   Code,
   Rocket,
   Star,
-  Zap,
   Target,
   Award,
-  Users,
   Palette,
   Database,
   Smartphone,
-  Eye,
   ArrowRight,
-  Play,
   CheckCircle,
   TrendingUp,
-  Lightbulb,
-  Shield,
   Clock,
   Layers,
   User,
   Facebook,
   BarChart3,
+  Moon,
+  Sun,
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { useTheme } from "next-themes"
 
 export default function Portfolio() {
   const [isVisible, setIsVisible] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   useEffect(() => {
+    setMounted(true)
     setIsVisible(true)
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
+  const techStack = [
+    { name: "React", icon: Code, color: "text-blue-500" },
+    { name: "Python", icon: Database, color: "text-yellow-500" },
+    { name: "TensorFlow", icon: Layers, color: "text-orange-500" },
+    { name: "Tailwind CSS", icon: Palette, color: "text-cyan-500" },
+    { name: "PyTorch", icon: Rocket, color: "text-red-500" },
+    { name: "Scikit-learn", icon: TrendingUp, color: "text-green-500" },
+  ]
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-blue-950 dark:to-indigo-950 transition-colors duration-500">
       {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-pink-400 to-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-r from-yellow-400 to-pink-600 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-gradient-to-r from-blue-400 to-green-600 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse animation-delay-4000"></div>
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 dark:from-blue-500/10 dark:to-cyan-500/10 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute top-1/3 -right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 dark:from-indigo-500/10 dark:to-purple-500/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-1/4 left-1/3 w-96 h-96 bg-gradient-to-r from-teal-400/20 to-emerald-400/20 dark:from-teal-500/10 dark:to-emerald-500/10 rounded-full blur-3xl animate-blob animation-delay-4000"></div>
       </div>
 
-      {/* Mouse Follower */}
-      <div
-        className="fixed w-6 h-6 bg-gradient-to-r from-pink-500 to-violet-500 rounded-full pointer-events-none z-50 mix-blend-difference transition-transform duration-100"
-        style={{
-          left: mousePosition.x - 12,
-          top: mousePosition.y - 12,
-        }}
-      />
-
       {/* Header */}
-      <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-black/20 backdrop-blur-md">
-        <div className="container flex h-16 items-center">
-          <div className="mr-4 flex">
-            <Link href="/" className="mr-6 flex items-center space-x-2 group">
-              <div className="relative">
-                <Sparkles className="h-6 w-6 text-yellow-400 group-hover:rotate-180 transition-transform duration-500" />
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-pink-400 rounded-full animate-ping"></div>
+      <header className="sticky top-0 z-40 w-full border-b border-slate-200/50 dark:border-slate-800/50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-slate-900/60">
+        <div className="container flex h-16 items-center justify-between">
+          <Link href="/" className="flex items-center space-x-2 group">
+            <div className="relative">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-400 dark:to-indigo-500 flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform duration-300">
+                TJ
               </div>
-              <span className="font-bold text-white text-lg bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-                Talha Jobayer Zihan
-              </span>
-            </Link>
-          </div>
-          <nav className="flex items-center space-x-8 text-sm font-medium">
+            </div>
+            <span className="font-bold text-slate-900 dark:text-white text-lg hidden sm:inline-block">
+              Talha Jobayer
+            </span>
+          </Link>
+
+          <nav className="hidden md:flex items-center space-x-1">
             {[
               { name: "About", icon: User },
               { name: "Projects", icon: Code },
@@ -107,89 +97,102 @@ export default function Portfolio() {
               <Link
                 key={item.name}
                 href={`#${item.name.toLowerCase()}`}
-                className="text-white/80 hover:text-white transition-all duration-300 relative group flex items-center gap-2"
+                className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300 flex items-center gap-2"
               >
-                <item.icon className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                <item.icon className="h-4 w-4" />
                 {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-500 to-purple-500 group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
           </nav>
-          <div className="ml-auto flex items-center space-x-4">
-            <Link
-              href="https://github.com/jobayertalha"
-              className="text-white/60 hover:text-pink-400 transition-all duration-300 hover:scale-110 relative group"
-            >
-              <Github className="h-5 w-5" />
-              <div className="absolute -inset-2 bg-pink-400/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/talha-jobayer-696a74237/"
-              className="text-white/60 hover:text-blue-400 transition-all duration-300 hover:scale-110 relative group"
-            >
-              <Linkedin className="h-5 w-5" />
-              <div className="absolute -inset-2 bg-blue-400/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
-            <Link
-              href="https://www.kaggle.com/talhajobayer"
-              className="text-white/60 hover:text-cyan-400 transition-all duration-300 hover:scale-110 relative group"
-            >
-              <BarChart3 className="h-5 w-5" />
-              <div className="absolute -inset-2 bg-cyan-400/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
+
+          <div className="flex items-center space-x-2">
+            <div className="hidden sm:flex items-center space-x-2">
+              <Link
+                href="https://github.com/jobayertalha"
+                className="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                <Github className="h-5 w-5" />
+              </Link>
+              <Link
+                href="https://www.linkedin.com/in/talha-jobayer-696a74237/"
+                className="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                <Linkedin className="h-5 w-5" />
+              </Link>
+              <Link
+                href="https://www.kaggle.com/talhajobayer"
+                className="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                <BarChart3 className="h-5 w-5" />
+              </Link>
+            </div>
+            {mounted && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="rounded-lg"
+              >
+                <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            )}
           </div>
         </div>
       </header>
 
-      <main>
+      <main className="relative">
         {/* Hero Section */}
-        <section id="about" className="relative min-h-screen flex items-center justify-center">
-          <div className="relative z-10 container px-4 md:px-6">
+        <section id="about" className="min-h-screen flex items-center justify-center py-20">
+          <div className="container px-4 md:px-6">
             <div
-              className={`flex flex-col items-center justify-center text-center space-y-8 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+              className={`max-w-4xl mx-auto text-center space-y-8 transition-all duration-1000 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
             >
-              <div className="space-y-6">
-                <div className="relative">
-                  <h1 className="text-5xl font-bold tracking-tighter sm:text-7xl xl:text-8xl/none">
-                    <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-                      Hi, I'm Talha
-                    </span>
-                    <br />
-                    <span className="bg-gradient-to-r from-yellow-400 via-red-400 to-pink-400 bg-clip-text text-transparent">
-                      Jobayer Zihan
-                    </span>
-                  </h1>
-                  <div className="absolute -top-4 -right-4 animate-bounce">
-                    <Star className="h-8 w-8 text-yellow-400 fill-yellow-400" />
-                  </div>
+              <div className="space-y-4">
+                <div className="inline-block">
+                  <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-0 px-4 py-2 text-sm font-medium">
+                    <Star className="h-4 w-4 mr-1 inline" />
+                    Available for opportunities
+                  </Badge>
                 </div>
-                <p className="text-xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed">
-                  <Rocket className="inline h-6 w-6 text-orange-400 mr-2" />
-                  Undergraduate CSE student eager to build{" "}
-                  <span className="text-yellow-400 font-bold">intelligent</span> and{" "}
-                  <span className="text-pink-400 font-bold">impactful</span> solutions
+
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
+                  <span className="bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+                     This is 
+                  </span>
                   <br />
-                  <Lightbulb className="inline h-6 w-6 text-yellow-400 mr-2" />
-                  Passionate ML/AI and software enthusiast
+                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+                    Talha Jobayer Zihan
+                  </span>
+                </h1>
+
+                <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+                  Undergraduate CSE student passionate about building{" "}
+                  <span className="font-semibold text-slate-900 dark:text-white">innovative</span> and{" "}
+                  <span className="font-semibold text-slate-900 dark:text-white">impactful</span> solutions through
+                  ML/AI and software engineering
                 </p>
               </div>
 
-              <div className="flex flex-col gap-4 min-[400px]:flex-row">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold px-8 py-4 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-pink-500/25 group"
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium px-8 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
                   asChild
                 >
                   <Link href="#contact" className="flex items-center gap-2">
-                    <MessageCircle className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
-                    <Sparkles className="h-4 w-4 group-hover:scale-125 transition-transform duration-300" />
+                    <MessageCircle className="h-5 w-5" />
                     Get In Touch
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-semibold px-8 py-4 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-blue-500/25 group"
+                  variant="outline"
+                  className="border-2 border-slate-300 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 font-medium px-8 py-6 rounded-xl transition-all duration-300 group bg-transparent"
                   asChild
                 >
                   <Link
@@ -198,198 +201,156 @@ export default function Portfolio() {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
                   >
-                    <FileText className="h-5 w-5 group-hover:rotate-12 transition-transform duration-300" />
-                    <Download className="h-4 w-4 group-hover:translate-y-1 transition-transform duration-300" />
+                    <FileText className="h-5 w-5" />
                     View Resume
-                    <Zap className="h-4 w-4 group-hover:scale-125 transition-transform duration-300" />
+                    <Download className="h-4 w-4 group-hover:translate-y-1 transition-transform" />
                   </Link>
                 </Button>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-4 pt-6">
-                {[
-                  { name: "React", color: "from-blue-400 to-cyan-400", icon: Code },
-                  { name: "Python", color: "from-yellow-400 to-orange-400", icon: Database },
-                  { name: "TensorFlow", color: "from-orange-400 to-red-400", icon: Layers },
-                  { name: "Tailwind CSS", color: "from-teal-400 to-blue-400", icon: Palette },
-                  { name: "PyTorch", color: "from-red-400 to-pink-400", icon: Zap },
-                  { name: "Scikit-learn", color: "from-green-400 to-teal-400", icon: TrendingUp },
-                ].map((tech, index) => (
-                  <Badge
-                    key={tech.name}
-                    className={`bg-gradient-to-r ${tech.color} text-white font-semibold px-4 py-2 rounded-full transform hover:scale-110 transition-all duration-300 cursor-pointer hover:shadow-lg group flex items-center gap-2`}
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                  >
-                    <tech.icon className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
-                    {tech.name}
-                  </Badge>
-                ))}
+              <div className="pt-8">
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 font-medium">Tech Stack</p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  {techStack.map((tech, index) => (
+                    <div key={tech.name} className="group relative" style={{ animationDelay: `${index * 100}ms` }}>
+                      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg opacity-0 group-hover:opacity-100 blur transition-all duration-300"></div>
+                      <div className="relative flex items-center gap-2 px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 animate-float">
+                        <tech.icon className={`h-5 w-5 ${tech.color}`} />
+                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{tech.name}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <ChevronDown className="h-8 w-8 text-white/70" />
+            <ChevronDown className="h-6 w-6 text-slate-400" />
           </div>
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="py-24 md:py-32 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-transparent"></div>
-
-          <div className="container px-4 md:px-6 relative z-10">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
-              <div className="flex items-center gap-3">
-                <Rocket className="h-8 w-8 text-orange-400" />
-                <h2 className="text-4xl font-bold tracking-tighter sm:text-6xl bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-                  Featured Projects
-                </h2>
-                <Code className="h-8 w-8 text-blue-400" />
-              </div>
-              <p className="max-w-[900px] text-white/80 text-lg flex items-center gap-2">
-                <Eye className="h-5 w-5 text-purple-400" />
+        <section id="projects" className="py-24 bg-white/50 dark:bg-slate-900/50">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-2xl mx-auto text-center mb-16">
+              <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-0 mb-4">
+                <Code className="h-3 w-3 mr-1" />
+                Portfolio
+              </Badge>
+              <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4">Featured Projects</h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400">
                 Here are some of my recent projects that showcase my skills and creativity
-                <Sparkles className="h-5 w-5 text-yellow-400" />
               </p>
             </div>
 
-            <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-2">
+            <div className="grid gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
               {[
                 {
-                  title: "🌟 Personal Portfolio Website",
+                  title: "Personal Portfolio Website",
                   description:
-                    "A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS. Features vibrant animations, glassmorphism effects, and a comprehensive showcase of projects, experience, and certifications.",
+                    "A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS. Features elegant animations, glassmorphism effects, and a comprehensive showcase of projects, experience, and certifications.",
                   tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
-                  gradient: "from-pink-500 to-purple-500",
-                  hoverGradient: "from-pink-600 to-purple-600",
                   icon: Rocket,
                   features: [
-                    "🎨 Modern UI with vibrant gradients and animations",
-                    "📱 Fully responsive design across all devices",
-                    "⚡ Built with Next.js 15 and React 19",
-                    "🎭 Interactive mouse follower and hover effects",
+                    "Modern UI with elegant design system",
+                    "Fully responsive across all devices",
+                    "Built with Next.js 15 and React 19",
+                    "Dark mode support with theme persistence",
                   ],
                   githubLink: "https://github.com/jobayertalha/Personal-portfolio-site",
-                  demoLink: null,
                   image: "/colorful-gradient-portfolio.png",
                 },
                 {
                   title: "Cross-Platform GUI Component Generator",
                   description:
-                    "🧪 A C++ project demonstrating Abstract Factory Design Pattern to create cross-platform GUI components with comprehensive GTest coverage",
+                    "A C++ project demonstrating Abstract Factory Design Pattern to create cross-platform GUI components with comprehensive GTest coverage",
                   tags: ["C++17", "GoogleTest", "Design Patterns", "OOP"],
-                  gradient: "from-purple-500 to-indigo-500",
-                  hoverGradient: "from-purple-600 to-indigo-600",
                   icon: Code,
                   features: [
-                    "🏭 Abstract Factory Pattern Implementation",
-                    "🖼️ Cross-Platform GUI Components (Windows/Linux)",
-                    "🧪 Comprehensive Unit Testing with GTest",
-                    "💡 Clean Architecture & Interface Segregation",
+                    "Abstract Factory Pattern Implementation",
+                    "Cross-Platform GUI Components",
+                    "Comprehensive Unit Testing with GTest",
+                    "Clean Architecture & Interface Segregation",
                   ],
                   githubLink: "https://github.com/jobayertalha/FinalTest",
-                  demoLink: null,
                   image: "/images/cpp-project-output.png",
                 },
                 {
-                  title: "🚗 Car Rental System Web App",
+                  title: "Car Rental System Web App",
                   description:
                     "A full-featured Car Rental Management System built with PHP and MySQL, designed to streamline car bookings, manage fleet inventory, and handle customer records efficiently.",
                   tags: ["PHP", "MySQL", "HTML/CSS", "JavaScript", "CRUD"],
-                  gradient: "from-green-500 to-teal-500",
-                  hoverGradient: "from-green-600 to-teal-600",
                   icon: Smartphone,
                   features: [
-                    "🚘 User Dashboard with car browsing & booking history",
-                    "🔐 Admin Panel for fleet & booking management",
-                    "📆 Real-time booking with date validation",
-                    "🔒 Secure authentication for admin & customers",
+                    "User Dashboard with car browsing & booking history",
+                    "Admin Panel for fleet & booking management",
+                    "Real-time booking with date validation",
+                    "Secure authentication for admin & customers",
                   ],
                   githubLink: "https://github.com/jobayertalha/Car-Rental-System",
-                  demoLink: null,
                   image: "/images/car-rental-homepage.png",
                 },
               ].map((project, index) => (
                 <Card
                   key={project.title}
-                  className="group bg-white/10 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/20 rounded-2xl overflow-hidden"
+                  className="group bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-xl overflow-hidden"
                 >
-                  <CardHeader className="relative overflow-hidden">
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-20 group-hover:opacity-30 transition-opacity duration-300`}
-                    ></div>
-                    <div className="relative">
-                      <Image
-                        src={project.image || "/placeholder.svg"}
-                        width={400}
-                        height={200}
-                        alt={project.title}
-                        className="aspect-video object-cover transition-transform duration-500 group-hover:scale-110 rounded-lg"
-                      />
-                      <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md rounded-full p-2">
-                        <project.icon className="h-6 w-6 text-white group-hover:rotate-12 transition-transform duration-300" />
-                      </div>
+                  <div className="relative overflow-hidden">
+                    <Image
+                      src={project.image || "/placeholder.svg"}
+                      width={600}
+                      height={400}
+                      alt={project.title}
+                      className="aspect-video object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute top-4 right-4 p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-lg">
+                      <project.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                     </div>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <CardTitle className="text-white text-xl mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300 flex items-center gap-2">
-                      <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                  </div>
+                  <CardHeader>
+                    <CardTitle className="text-slate-900 dark:text-white text-xl flex items-center gap-2">
                       {project.title}
                     </CardTitle>
-                    <CardDescription className="text-white/80 mb-4 text-base">{project.description}</CardDescription>
-
-                    <div className="mb-4">
-                      <h4 className="text-white font-semibold mb-2 flex items-center gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-400" />
-                        Key Features:
-                      </h4>
-                      <ul className="text-white/70 text-sm space-y-1">
+                    <CardDescription className="text-slate-600 dark:text-slate-400">
+                      {project.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Key Features:</h4>
+                      <ul className="space-y-1">
                         {project.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-center gap-2">
-                            <ArrowRight className="h-3 w-3 text-blue-400" />
+                          <li key={idx} className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
                             {feature}
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
                         <Badge
                           key={tag}
-                          className="bg-white/20 text-white border-white/30 hover:bg-white/30 transition-all duration-300 flex items-center gap-1"
+                          variant="secondary"
+                          className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
                         >
-                          <Shield className="h-3 w-3" />
                           {tag}
                         </Badge>
                       ))}
                     </div>
-                    <div className="flex gap-3">
-                      <Button
-                        size="sm"
-                        className={`bg-gradient-to-r ${project.gradient} hover:${project.hoverGradient} text-white font-semibold rounded-full group`}
-                        asChild
-                      >
-                        <Link href={project.githubLink} target="_blank" className="flex items-center gap-2">
-                          <Github className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
-                          Code
-                          <Code className="h-3 w-3 group-hover:scale-125 transition-transform duration-300" />
-                        </Link>
-                      </Button>
-                      {project.demoLink && (
-                        <Button
-                          size="sm"
-                          className="bg-white/20 hover:bg-white/30 text-white border border-white/30 rounded-full group"
-                          asChild
-                        >
-                          <Link href={project.demoLink} target="_blank" className="flex items-center gap-2">
-                            <Play className="h-4 w-4 group-hover:scale-125 transition-transform duration-300" />
-                            Live Demo
-                            <ExternalLink className="h-3 w-3 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                          </Link>
-                        </Button>
-                      )}
-                    </div>
+
+                    <Button
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+                      asChild
+                    >
+                      <Link href={project.githubLink} target="_blank" className="flex items-center gap-2">
+                        <Github className="h-4 w-4" />
+                        View on GitHub
+                        <ExternalLink className="h-3 w-3" />
+                      </Link>
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
@@ -398,24 +359,20 @@ export default function Portfolio() {
         </section>
 
         {/* Experience Section */}
-        <section id="experience" className="py-24 md:py-32 relative">
+        <section id="experience" className="py-24">
           <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
-              <div className="flex items-center gap-3">
-                <Award className="h-8 w-8 text-yellow-400" />
-                <h2 className="text-4xl font-bold tracking-tighter sm:text-6xl bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent">
-                  Work Experience
-                </h2>
-                <Briefcase className="h-8 w-8 text-blue-400" />
-              </div>
-              <p className="max-w-[900px] text-white/80 text-lg flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-green-400" />
+            <div className="max-w-2xl mx-auto text-center mb-16">
+              <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-0 mb-4">
+                <Briefcase className="h-3 w-3 mr-1" />
+                Career
+              </Badge>
+              <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4">Work Experience</h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400">
                 My professional journey and amazing companies I've worked with
-                <Users className="h-5 w-5 text-purple-400" />
               </p>
             </div>
 
-            <div className="mx-auto max-w-4xl space-y-8">
+            <div className="max-w-4xl mx-auto space-y-6">
               {[
                 {
                   title: "Industrial Attachment",
@@ -423,20 +380,12 @@ export default function Portfolio() {
                   period: "Industrial Attachment Program",
                   location: "ECB Chottor, Dhaka",
                   achievements: [
-                    "🏭 Completed comprehensive industrial attachment program in semiconductor manufacturing",
-                    "🔬 Gained hands-on experience with advanced semiconductor fabrication processes",
-                    "⚡ Observed real-world application of theoretical knowledge in industrial settings",
-                    "💡 Learned about quality control procedures and industry-standard protocols",
-                    "🔧 Explored cutting-edge equipment and methodologies used in semiconductor production",
+                    "Completed comprehensive industrial attachment program in semiconductor manufacturing",
+                    "Gained hands-on experience with advanced semiconductor fabrication processes",
+                    "Observed real-world application of theoretical knowledge in industrial settings",
+                    "Learned about quality control procedures and industry-standard protocols",
                   ],
-                  tags: [
-                    "Semiconductor",
-                    "Industrial Attachment",
-                    "Manufacturing",
-                    "Industry Exposure",
-                    "Quality Control",
-                  ],
-                  gradient: "from-cyan-400 to-blue-500",
+                  tags: ["Semiconductor", "Industrial Attachment", "Manufacturing"],
                   icon: Layers,
                   status: "Completed",
                 },
@@ -446,84 +395,75 @@ export default function Portfolio() {
                   period: "July 2024 - March 2025",
                   location: "Rajshahi, Bangladesh",
                   achievements: [
-                    "🎯 Spearheaded content creation and storytelling to drive audience engagement",
-                    "📈 Developed and executed marketing strategies to enhance TEDxRUET's visibility",
-                    "⚡ Adapted quickly to dynamic environments, ensuring efficient teamwork and execution",
+                    "Spearheaded content creation and storytelling to drive audience engagement",
+                    "Developed and executed marketing strategies to enhance TEDxRUET's visibility",
+                    "Adapted quickly to dynamic environments, ensuring efficient teamwork and execution",
                   ],
-                  tags: ["Marketing", "Content Creation", "Strategy", "Storytelling"],
-                  gradient: "from-red-400 to-orange-500",
+                  tags: ["Marketing", "Content Creation", "Strategy"],
                   icon: Target,
-                  status: "Seasonal(Completed)",
+                  status: "Completed",
                 },
                 {
                   title: "Industrial Training",
                   company: "Netro Systems",
-                  period: "15days+ Training",
+                  period: "15 days+ Training",
                   location: "Hi-Tech Park, Rajshahi",
                   achievements: [
-                    "💻 Gained hands-on experience in software development practices",
-                    "🔧 Learned industry-standard tools and technologies",
-                    "👥 Collaborated with experienced developers on real projects",
-                    "📚 Enhanced technical skills through practical implementation",
+                    "Gained hands-on experience in software development practices",
+                    "Learned industry-standard tools and technologies",
+                    "Collaborated with experienced developers on real projects",
                   ],
-                  tags: ["Software Development", "Training", "Hands-on Experience", "Industry Exposure"],
-                  gradient: "from-blue-400 to-purple-500",
+                  tags: ["Software Development", "Training"],
                   icon: Code,
                   status: "Completed",
                 },
               ].map((job, index) => (
                 <Card
                   key={job.title}
-                  className="bg-white/10 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-500 hover:shadow-xl rounded-2xl overflow-hidden group"
+                  className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300"
                 >
-                  <div className={`h-1 bg-gradient-to-r ${job.gradient}`}></div>
                   <CardHeader>
-                    <div className="flex items-start justify-between">
+                    <div className="flex items-start justify-between flex-wrap gap-4">
                       <div className="flex-1">
-                        <CardTitle className="flex items-center gap-3 text-white text-xl group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300">
-                          <job.icon className="h-6 w-6 text-yellow-400 group-hover:rotate-12 transition-transform duration-300" />
-                          {job.title}
-                          <Badge
-                            className={`ml-2 ${job.status === "Current" ? "bg-green-500/20 text-green-400" : "bg-blue-500/20 text-blue-400"} border-0`}
-                          >
-                            {job.status === "Current" ? (
-                              <div className="flex items-center gap-1">
-                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                {job.status}
-                              </div>
-                            ) : (
-                              <div className="flex items-center gap-1">
-                                <CheckCircle className="h-3 w-3" />
-                                {job.status}
-                              </div>
-                            )}
-                          </Badge>
-                        </CardTitle>
-                        <CardDescription className="text-lg font-medium text-white/90 mt-1 flex items-center gap-2">
-                          <Target className="h-4 w-4 text-purple-400" />
-                          {job.company}
-                        </CardDescription>
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                            <job.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                          </div>
+                          <div>
+                            <CardTitle className="text-slate-900 dark:text-white">{job.title}</CardTitle>
+                            <CardDescription className="text-slate-600 dark:text-slate-400 font-medium">
+                              {job.company}
+                            </CardDescription>
+                          </div>
+                        </div>
                       </div>
                       <div className="text-right">
-                        <div className="flex items-center gap-2 text-sm text-white/70">
-                          <Clock className="h-4 w-4 text-blue-400" />
+                        <Badge
+                          variant="secondary"
+                          className="mb-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
+                        >
+                          <CheckCircle className="h-3 w-3 mr-1" />
+                          {job.status}
+                        </Badge>
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                          <Clock className="h-4 w-4" />
                           {job.period}
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-white/70 mt-1">
-                          <MapPin className="h-4 w-4 text-red-400" />
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mt-1">
+                          <MapPin className="h-4 w-4" />
                           {job.location}
                         </div>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 text-white/80 mb-4">
+                    <ul className="space-y-2 mb-4">
                       {job.achievements.map((achievement, achIndex) => (
                         <li
                           key={achIndex}
-                          className="hover:text-white transition-colors duration-300 flex items-start gap-2"
+                          className="flex items-start gap-2 text-slate-600 dark:text-slate-400 text-sm"
                         >
-                          <ArrowRight className="h-4 w-4 text-green-400 mt-0.5 flex-shrink-0" />
+                          <ArrowRight className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
                           {achievement}
                         </li>
                       ))}
@@ -532,9 +472,9 @@ export default function Portfolio() {
                       {job.tags.map((tag) => (
                         <Badge
                           key={tag}
-                          className={`bg-gradient-to-r ${job.gradient} text-white font-semibold hover:scale-105 transition-transform duration-300 flex items-center gap-1`}
+                          variant="secondary"
+                          className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
                         >
-                          <Zap className="h-3 w-3" />
                           {tag}
                         </Badge>
                       ))}
@@ -547,26 +487,20 @@ export default function Portfolio() {
         </section>
 
         {/* Certifications Section */}
-        <section id="certifications" className="py-24 md:py-32 relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent"></div>
-
-          <div className="container px-4 md:px-6 relative z-10">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
-              <div className="flex items-center gap-3">
-                <Award className="h-8 w-8 text-yellow-400" />
-                <h2 className="text-4xl font-bold tracking-tighter sm:text-6xl bg-gradient-to-r from-green-400 to-purple-500 bg-clip-text text-transparent">
-                  Certifications
-                </h2>
-                <Star className="h-8 w-8 text-yellow-400 fill-yellow-400" />
-              </div>
-              <p className="max-w-[900px] text-white/80 text-lg flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-green-400" />
+        <section id="certifications" className="py-24 bg-white/50 dark:bg-slate-900/50">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-2xl mx-auto text-center mb-16">
+              <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-0 mb-4">
+                <Award className="h-3 w-3 mr-1" />
+                Achievements
+              </Badge>
+              <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4">Certifications</h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400">
                 Professional certifications and continuous learning achievements
-                <Lightbulb className="h-5 w-5 text-yellow-400" />
               </p>
             </div>
 
-            <div className="mx-auto max-w-6xl grid gap-6 lg:grid-cols-2">
+            <div className="grid gap-6 lg:grid-cols-2 max-w-6xl mx-auto">
               {[
                 {
                   title: "PHP (Laravel) Training Certification",
@@ -576,9 +510,8 @@ export default function Portfolio() {
                   description:
                     "Under: Enhancing Digital Government and Economy (EDGE) Project, Bangladesh Computer Council, ICT Division",
                   serialNo: "EDGE-DSTS-116-6641-00016",
-                  gradient: "from-purple-500 to-indigo-600",
                   icon: Code,
-                  tags: ["PHP", "Laravel", "Web Development", "Government Project"],
+                  tags: ["PHP", "Laravel", "Web Development"],
                   type: "Training",
                 },
                 {
@@ -587,9 +520,8 @@ export default function Portfolio() {
                   date: "April 2025",
                   description: "Advanced course covering MLOps, model deployment, and production ML systems",
                   verificationLink: "https://www.coursera.org/account/accomplishments/verify/ND0HHROLRSGV",
-                  gradient: "from-blue-500 to-cyan-600",
                   icon: Database,
-                  tags: ["MLOps", "Production ML", "DeepLearning.AI", "Advanced"],
+                  tags: ["MLOps", "Production ML", "DeepLearning.AI"],
                   type: "Certification",
                 },
                 {
@@ -598,9 +530,8 @@ export default function Portfolio() {
                   date: "March 2025",
                   description: "Comprehensive NLP course using TensorFlow for text processing and language models",
                   verificationLink: "https://www.coursera.org/account/accomplishments/verify/JH2VY16BAY43",
-                  gradient: "from-green-500 to-teal-600",
                   icon: Layers,
-                  tags: ["NLP", "TensorFlow", "Deep Learning", "Text Processing"],
+                  tags: ["NLP", "TensorFlow", "Deep Learning"],
                   type: "Certification",
                 },
                 {
@@ -609,9 +540,8 @@ export default function Portfolio() {
                   date: "March 2025",
                   description: "Advanced deep learning concepts and reinforcement learning algorithms",
                   verificationLink: "https://www.coursera.org/account/accomplishments/verify/XUYUUSY3XIZH",
-                  gradient: "from-red-500 to-pink-600",
-                  icon: Zap,
-                  tags: ["Deep Learning", "Reinforcement Learning", "IBM", "AI"],
+                  icon: Rocket,
+                  tags: ["Deep Learning", "Reinforcement Learning", "IBM"],
                   type: "Certification",
                 },
                 {
@@ -620,20 +550,8 @@ export default function Portfolio() {
                   date: "March 2025",
                   description: "Fundamentals of neural networks and hands-on PyTorch implementation",
                   verificationLink: "https://www.coursera.org/account/accomplishments/verify/FP8CNVG4SYW1",
-                  gradient: "from-orange-500 to-red-600",
-                  icon: Rocket,
-                  tags: ["Neural Networks", "PyTorch", "Deep Learning", "IBM"],
-                  type: "Certification",
-                },
-                {
-                  title: "Deep Learning with Keras and Tensorflow",
-                  issuer: "Coursera (IBM)",
-                  date: "March 2025",
-                  description: "Practical deep learning using Keras and TensorFlow frameworks",
-                  verificationLink: "https://www.coursera.org/account/accomplishments/verify/R0611FSJDIUM",
-                  gradient: "from-indigo-500 to-purple-600",
                   icon: Layers,
-                  tags: ["Keras", "TensorFlow", "Deep Learning", "IBM"],
+                  tags: ["Neural Networks", "PyTorch", "IBM"],
                   type: "Certification",
                 },
                 {
@@ -642,78 +560,79 @@ export default function Portfolio() {
                   date: "March 2025",
                   description: "Comprehensive machine learning course using Python and scikit-learn",
                   verificationLink: "https://www.coursera.org/account/accomplishments/verify/YFVHX96TAIBY",
-                  gradient: "from-yellow-500 to-orange-600",
                   icon: TrendingUp,
-                  tags: ["Machine Learning", "Python", "Scikit-learn", "IBM"],
+                  tags: ["Machine Learning", "Python", "Scikit-learn"],
                   type: "Certification",
                 },
               ].map((cert, index) => (
                 <Card
                   key={cert.title}
-                  className="group bg-white/10 backdrop-blur-md border border-white/20 hover:border-white/40 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-500/20 rounded-2xl overflow-hidden"
+                  className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300"
                 >
-                  <div className={`h-1 bg-gradient-to-r ${cert.gradient}`}></div>
-                  <CardHeader className="relative">
-                    <div className="flex items-start justify-between">
+                  <CardHeader>
+                    <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <cert.icon className="h-6 w-6 text-yellow-400 group-hover:rotate-12 transition-transform duration-300" />
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                            <cert.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                          </div>
                           <Badge
-                            className={`${cert.type === "Training" ? "bg-purple-500/20 text-purple-400" : "bg-blue-500/20 text-blue-400"} border-0`}
+                            variant="secondary"
+                            className={
+                              cert.type === "Training"
+                                ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
+                                : "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                            }
                           >
                             {cert.type}
                           </Badge>
                         </div>
-                        <CardTitle className="text-white text-lg group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-yellow-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300">
-                          {cert.title}
-                        </CardTitle>
-                        <CardDescription className="text-white/90 font-medium flex items-center gap-2 mt-1">
-                          <Award className="h-4 w-4 text-green-400" />
+                        <CardTitle className="text-slate-900 dark:text-white text-lg">{cert.title}</CardTitle>
+                        <CardDescription className="text-slate-600 dark:text-slate-400 font-medium mt-1">
                           {cert.issuer}
                         </CardDescription>
                       </div>
                       <div className="text-right">
-                        <div className="flex items-center gap-2 text-sm text-white/70">
-                          <Clock className="h-4 w-4 text-blue-400" />
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                          <Clock className="h-4 w-4" />
                           {cert.date}
                         </div>
-                        {cert.duration && <div className="text-sm text-white/60 mt-1">{cert.duration}</div>}
+                        {cert.duration && (
+                          <div className="text-sm text-slate-500 dark:text-slate-500 mt-1">{cert.duration}</div>
+                        )}
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-white/80 text-sm mb-3 leading-relaxed">{cert.description}</p>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm mb-3">{cert.description}</p>
 
                     {cert.serialNo && (
-                      <p className="text-white/60 text-xs mb-3 font-mono">Serial No.: {cert.serialNo}</p>
+                      <p className="text-slate-500 dark:text-slate-500 text-xs mb-3 font-mono">
+                        Serial No.: {cert.serialNo}
+                      </p>
                     )}
 
                     <div className="flex flex-wrap gap-2 mb-4">
                       {cert.tags.map((tag) => (
                         <Badge
                           key={tag}
-                          className={`bg-gradient-to-r ${cert.gradient} text-white font-semibold hover:scale-105 transition-transform duration-300 flex items-center gap-1 text-xs`}
+                          variant="secondary"
+                          className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
                         >
-                          <Shield className="h-3 w-3" />
                           {tag}
                         </Badge>
                       ))}
                     </div>
 
                     {cert.verificationLink && (
-                      <Button
-                        size="sm"
-                        className={`bg-gradient-to-r ${cert.gradient} hover:opacity-90 text-white font-semibold rounded-full group w-full`}
-                        asChild
-                      >
+                      <Button variant="outline" className="w-full bg-transparent" asChild>
                         <Link
                           href={cert.verificationLink}
                           target="_blank"
                           className="flex items-center justify-center gap-2"
                         >
-                          <ExternalLink className="h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
+                          <ExternalLink className="h-4 w-4" />
                           Verify Certificate
-                          <CheckCircle className="h-3 w-3 group-hover:scale-125 transition-transform duration-300" />
                         </Link>
                       </Button>
                     )}
@@ -725,212 +644,153 @@ export default function Portfolio() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-24 md:py-32 relative">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-
-          <div className="container px-4 md:px-6 relative z-10">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
-              <div className="flex items-center gap-3">
-                <MessageCircle className="h-8 w-8 text-blue-400" />
-                <h2 className="text-4xl font-bold tracking-tighter sm:text-6xl bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
-                  Get In Touch
-                </h2>
-                <Send className="h-8 w-8 text-green-400" />
-              </div>
-              <p className="max-w-[900px] text-white/80 text-lg flex items-center gap-2">
-                <Rocket className="h-5 w-5 text-orange-400" />
+        <section id="contact" className="py-24">
+          <div className="container px-4 md:px-6">
+            <div className="max-w-2xl mx-auto text-center mb-16">
+              <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-0 mb-4">
+                <MessageCircle className="h-3 w-3 mr-1" />
+                Connect
+              </Badge>
+              <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4">Get In Touch</h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400">
                 Ready to create something amazing together? Let's connect!
-                <Sparkles className="h-5 w-5 text-yellow-400" />
               </p>
             </div>
 
-            <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-2">
-              <div className="space-y-8">
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
-                  <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
-                    <Mail className="h-6 w-6 text-blue-400" />
-                    Contact Information
-                  </h3>
-                  <div className="space-y-4">
+            <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              <div className="space-y-6">
+                <Card className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-white">
+                      <Mail className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      Contact Information
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
                     {[
                       {
                         icon: Mail,
                         text: "jobayertalha2020@gmail.com",
                         href: "mailto:jobayertalha2020@gmail.com",
-                        color: "text-red-400",
-                        bgColor: "bg-red-400/10",
                       },
-                      {
-                        icon: Phone,
-                        text: "01721577792",
-                        href: "tel:01721577792",
-                        color: "text-green-400",
-                        bgColor: "bg-green-400/10",
-                      },
-                      {
-                        icon: MapPin,
-                        text: "Rajshahi, Bangladesh",
-                        href: "#",
-                        color: "text-blue-400",
-                        bgColor: "bg-blue-400/10",
-                      },
+                      { icon: Phone, text: "01721577792", href: "tel:01721577792" },
+                      { icon: MapPin, text: "Rajshahi, Bangladesh", href: "#" },
                     ].map((contact, index) => (
                       <div
                         key={contact.text}
-                        className={`flex items-center gap-4 group hover:bg-white/10 p-4 rounded-lg transition-all duration-300 ${contact.bgColor} hover:scale-105`}
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-300"
                       >
-                        <div className={`p-2 rounded-full ${contact.bgColor}`}>
-                          <contact.icon
-                            className={`h-6 w-6 ${contact.color} group-hover:scale-110 transition-transform duration-300`}
-                          />
+                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                          <contact.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                         </div>
-                        <span className="text-white group-hover:text-white/90 transition-colors duration-300 font-medium">
-                          {contact.text}
-                        </span>
-                        <ArrowRight className="h-4 w-4 text-white/40 group-hover:text-white/70 group-hover:translate-x-1 transition-all duration-300 ml-auto" />
+                        <span className="text-slate-700 dark:text-slate-300 font-medium">{contact.text}</span>
                       </div>
                     ))}
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
 
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6">
-                  <h3 className="text-2xl font-bold mb-6 text-white flex items-center gap-2">
-                    <Star className="h-6 w-6 text-yellow-400 fill-yellow-400" />
-                    Follow Me
-                  </h3>
-                  <div className="flex gap-4">
-                    <Button
-                      className="bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-600 hover:to-gray-800 text-white rounded-full p-4 hover:scale-110 transition-all duration-300 group"
-                      asChild
-                    >
-                      <Link href="https://github.com/jobayertalha" target="_blank" className="flex items-center gap-2">
-                        <Github className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-                        <span className="hidden sm:inline">GitHub</span>
-                      </Link>
-                    </Button>
-                    <Button
-                      className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white rounded-full p-4 hover:scale-110 transition-all duration-300 group"
-                      asChild
-                    >
-                      <Link
-                        href="https://www.linkedin.com/in/talha-jobayer-696a74237/"
-                        target="_blank"
-                        className="flex items-center gap-2"
+                <Card className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-slate-900 dark:text-white">
+                      <Star className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      Follow Me
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-wrap gap-3">
+                    {[
+                      { href: "https://github.com/jobayertalha", icon: Github, label: "GitHub" },
+                      {
+                        href: "https://www.linkedin.com/in/talha-jobayer-696a74237/",
+                        icon: Linkedin,
+                        label: "LinkedIn",
+                      },
+                      { href: "https://www.facebook.com/talha.jobayer.39/", icon: Facebook, label: "Facebook" },
+                      { href: "https://www.kaggle.com/talhajobayer", icon: BarChart3, label: "Kaggle" },
+                    ].map((social) => (
+                      <Button
+                        key={social.href}
+                        variant="outline"
+                        asChild
+                        className="flex-1 min-w-[140px] bg-transparent"
                       >
-                        <Linkedin className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-                        <span className="hidden sm:inline">LinkedIn</span>
-                      </Link>
-                    </Button>
-                    <Button
-                      className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-400 hover:to-blue-600 text-white rounded-full p-4 hover:scale-110 transition-all duration-300 group"
-                      asChild
-                    >
-                      <Link
-                        href="https://www.facebook.com/talha.jobayer.39/"
-                        target="_blank"
-                        className="flex items-center gap-2"
-                      >
-                        <Facebook className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-                        <span className="hidden sm:inline">Facebook</span>
-                      </Link>
-                    </Button>
-                    <Button
-                      className="bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-400 hover:to-teal-500 text-white rounded-full p-4 hover:scale-110 transition-all duration-300 group"
-                      asChild
-                    >
-                      <Link
-                        href="https://www.kaggle.com/talhajobayer"
-                        target="_blank"
-                        className="flex items-center gap-2"
-                      >
-                        <BarChart3 className="h-6 w-6 group-hover:rotate-12 transition-transform duration-300" />
-                        <span className="hidden sm:inline">Kaggle</span>
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
+                        <Link href={social.href} target="_blank" className="flex items-center gap-2">
+                          <social.icon className="h-4 w-4" />
+                          {social.label}
+                        </Link>
+                      </Button>
+                    ))}
+                  </CardContent>
+                </Card>
               </div>
 
-              <Card className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-pink-500/20 to-purple-500/20">
-                  <CardTitle className="text-white text-2xl flex items-center gap-2">
-                    <Send className="h-6 w-6 text-pink-400" />
-                    Send me a message
-                    <Sparkles className="h-5 w-5 text-yellow-400" />
-                  </CardTitle>
-                  <CardDescription className="text-white/80 flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-yellow-400" />
+              <Card className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                <CardHeader>
+                  <CardTitle className="text-slate-900 dark:text-white">Send me a message</CardTitle>
+                  <CardDescription className="text-slate-600 dark:text-slate-400">
                     Fill out the form below and I'll get back to you ASAP!
-                    <Clock className="h-4 w-4 text-blue-400" />
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="p-6">
+                <CardContent>
                   <form className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="first-name" className="text-white flex items-center gap-2">
-                          <Users className="h-4 w-4 text-blue-400" />
+                        <Label htmlFor="first-name" className="text-slate-700 dark:text-slate-300">
                           First name
                         </Label>
                         <Input
                           id="first-name"
                           placeholder="Enter your first name"
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400 focus:ring-pink-400 transition-all duration-300 focus:scale-105"
+                          className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="last-name" className="text-white flex items-center gap-2">
-                          <Users className="h-4 w-4 text-purple-400" />
+                        <Label htmlFor="last-name" className="text-slate-700 dark:text-slate-300">
                           Last name
                         </Label>
                         <Input
                           id="last-name"
                           placeholder="Enter your last name"
-                          className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400 focus:ring-pink-400 transition-all duration-300 focus:scale-105"
+                          className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-white flex items-center gap-2">
-                        <Mail className="h-4 w-4 text-red-400" />
+                      <Label htmlFor="email" className="text-slate-700 dark:text-slate-300">
                         Email
                       </Label>
                       <Input
                         id="email"
                         placeholder="Enter your email"
                         type="email"
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400 focus:ring-pink-400 transition-all duration-300 focus:scale-105"
+                        className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="subject" className="text-white flex items-center gap-2">
-                        <Target className="h-4 w-4 text-green-400" />
+                      <Label htmlFor="subject" className="text-slate-700 dark:text-slate-300">
                         Subject
                       </Label>
                       <Input
                         id="subject"
                         placeholder="Enter the subject"
-                        className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400 focus:ring-pink-400 transition-all duration-300 focus:scale-105"
+                        className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="message" className="text-white flex items-center gap-2">
-                        <MessageCircle className="h-4 w-4 text-blue-400" />
+                      <Label htmlFor="message" className="text-slate-700 dark:text-slate-300">
                         Message
                       </Label>
                       <Textarea
                         id="message"
                         placeholder="Enter your message"
-                        className="min-h-[120px] bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-pink-400 focus:ring-pink-400 transition-all duration-300 focus:scale-105"
+                        className="min-h-[120px] bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                       />
                     </div>
                     <Button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-pink-500/25 group"
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
                     >
-                      <Send className="h-5 w-5 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
+                      <Send className="h-4 w-4 mr-2" />
                       Send Message
-                      <Rocket className="h-4 w-4 ml-2 group-hover:rotate-12 transition-transform duration-300" />
                     </Button>
                   </form>
                 </CardContent>
@@ -941,51 +801,24 @@ export default function Portfolio() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-8 bg-black/20 backdrop-blur-md">
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
-          <p className="text-center text-sm text-white/60 md:text-left flex items-center gap-2">
+      <footer className="border-t border-slate-200 dark:border-slate-800 py-8 bg-white/50 dark:bg-slate-900/50">
+        <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-slate-600 dark:text-slate-400 flex items-center gap-2">
             © {new Date().getFullYear()} Talha Jobayer Zihan. Made with
-            <Heart className="h-4 w-4 text-red-400 fill-red-400 animate-pulse" />
-            and lots of
-            <Coffee className="h-4 w-4 text-yellow-600" />
+            <Heart className="h-4 w-4 text-red-500 fill-red-500" />
           </p>
           <div className="flex items-center space-x-4">
             {[
-              {
-                href: "https://github.com/jobayertalha",
-                icon: Github,
-                color: "hover:text-gray-400",
-                bg: "hover:bg-gray-400/10",
-              },
-              {
-                href: "https://www.linkedin.com/in/talha-jobayer-696a74237/",
-                icon: Linkedin,
-                color: "hover:text-blue-400",
-                bg: "hover:bg-blue-400/10",
-              },
-              {
-                href: "https://www.facebook.com/talha.jobayer.39/",
-                icon: Facebook,
-                color: "hover:text-blue-500",
-                bg: "hover:bg-blue-500/10",
-              },
-              {
-                href: "https://www.kaggle.com/talhajobayer",
-                icon: BarChart3,
-                color: "hover:text-cyan-400",
-                bg: "hover:bg-cyan-400/10",
-              },
-              {
-                href: "mailto:jobayertalha2020@gmail.com",
-                icon: Mail,
-                color: "hover:text-red-400",
-                bg: "hover:bg-red-400/10",
-              },
-            ].map((social, index) => (
+              { href: "https://github.com/jobayertalha", icon: Github },
+              { href: "https://www.linkedin.com/in/talha-jobayer-696a74237/", icon: Linkedin },
+              { href: "https://www.facebook.com/talha.jobayer.39/", icon: Facebook },
+              { href: "https://www.kaggle.com/talhajobayer", icon: BarChart3 },
+              { href: "mailto:jobayertalha2020@gmail.com", icon: Mail },
+            ].map((social) => (
               <Link
                 key={social.href}
                 href={social.href}
-                className={`text-white/60 ${social.color} ${social.bg} transition-all duration-300 hover:scale-110 p-2 rounded-full`}
+                className="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
               >
                 <social.icon className="h-5 w-5" />
               </Link>
