@@ -246,7 +246,7 @@ export default function Portfolio() {
 
             <div className="grid gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
               {[
-      {
+      
   title: "Bangla Sarcasm Detection",
   description:
     "A transformer-based NLP project for detecting sarcasm in Bangla text using BanglaBERT. The model focuses on robust generalization through advanced regularization techniques and balanced training strategies.",
