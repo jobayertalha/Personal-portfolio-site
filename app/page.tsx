@@ -196,7 +196,7 @@ export default function Portfolio() {
                   asChild
                 >
                   <Link
-                    href="https://drive.google.com/file/d/12oqKip_9zEhFOyzLyGoEC9DuQYxd9725/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1uFa98RUCOcM91oWugsa4aYUenW5g3HqZ/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
@@ -246,7 +246,29 @@ export default function Portfolio() {
 
             <div className="grid gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
               {[
-                {
+      {
+  title: "Bangla Sarcasm Detection",
+  description:
+    "A transformer-based NLP project for detecting sarcasm in Bangla text using BanglaBERT. The model focuses on robust generalization through advanced regularization techniques and balanced training strategies.",
+  tags: [
+    "NLP",
+    "Transformers",
+    "BanglaBERT",
+    "PyTorch",
+    "Kaggle",
+    "Deep Learning",
+  ],
+  icon: Brain,
+  features: [
+    "Built using BanglaBERT (csebuetnlp/banglabert)",
+    "Balanced dataset using upsampling to handle class imbalance",
+    "Applied Mixup, FGM adversarial training, and R-Drop regularization",
+    "Reduced overfitting via partial layer freezing and dropout tuning",
+  ],
+  githubLink: "https://www.kaggle.com/code/talhajobayer/benagali-sarcasm-detection",
+  
+},
+              {
                   title: "Personal Portfolio Website",
                   description:
                     "A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS. Features elegant animations, glassmorphism effects, and a comprehensive showcase of projects, experience, and certifications.",
