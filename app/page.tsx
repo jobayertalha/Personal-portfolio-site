@@ -252,10 +252,26 @@ export default function Portfolio() {
             <div className="grid gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
               {[
                 {
+                  title: "CareerVector - AI Career Analysis App",
+                  description:
+                    "A RAG-based AI career assistant that analyzes CVs against real LinkedIn job descriptions (Phitron AI/ML Job Market 2026). Provides semantic skill matching, career roadmaps, and an AI/ML readiness quiz with realistic match scores and actionable insights.",
+                  tags: ["RAG Pipeline", "FAISS", "LLaMA 3.3", "Groq", "Streamlit", "Python", "NLP"],
+                  icon: Sparkles,
+                  features: [
+                    "Semantic CV analysis with FAISS embeddings (not keyword-based)",
+                    "JD matching with CV ↔ role alignment scores and explanations",
+                    "AI/ML readiness quiz with strength & gap breakdown",
+                    "Dark/light mode with theme consistency & social share functionality",
+                  ],
+                  githubLink: "https://lnkd.in/eKU8HVHq",
+                  liveLink: "https://lnkd.in/eruXiDBT",
+                  image: "/careervector-app.png",
+                },
+                {
                   title: "Personal Portfolio Website",
                   description:
                     "A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS. Features elegant animations, glassmorphism effects, and a comprehensive showcase of projects, experience, and certifications.",
-                  tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+                  tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "RAG", "LLM", "FAISS"],
                   icon: Rocket,
                   features: [
                     "Modern UI with elegant design system",
@@ -264,6 +280,7 @@ export default function Portfolio() {
                     "Dark mode support with theme persistence",
                   ],
                   githubLink: "https://github.com/jobayertalha/Personal-portfolio-site",
+                  liveLink: "https://lnkd.in/g8yKT6MT",
                   image: "/colorful-gradient-portfolio.png",
                 },
                 {
@@ -361,16 +378,30 @@ export default function Portfolio() {
                       ))}
                     </div>
 
-                    <Button
-                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
-                      asChild
-                    >
-                      <Link href={project.githubLink} target="_blank" className="flex items-center gap-2">
-                        <Github className="h-4 w-4" />
-                        View on GitHub
-                        <ExternalLink className="h-3 w-3" />
-                      </Link>
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button
+                        className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
+                        asChild
+                      >
+                        <Link href={project.githubLink} target="_blank" className="flex items-center justify-center gap-2">
+                          <Github className="h-4 w-4" />
+                          {project.liveLink ? "GitHub" : "View"}
+                          <ExternalLink className="h-3 w-3" />
+                        </Link>
+                      </Button>
+                      {project.liveLink && (
+                        <Button
+                          className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white"
+                          asChild
+                        >
+                          <Link href={project.liveLink} target="_blank" className="flex items-center justify-center gap-2">
+                            <Rocket className="h-4 w-4" />
+                            Live Demo
+                            <ExternalLink className="h-3 w-3" />
+                          </Link>
+                        </Button>
+                      )}
+                    </div>
                   </CardContent>
                 </Card>
               ))}
