@@ -271,7 +271,7 @@ export default function Portfolio() {
                   title: "Personal Portfolio Website",
                   description:
                     "A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS. Features elegant animations, glassmorphism effects, and a comprehensive showcase of projects, experience, and certifications.",
-                  tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+                  tags: ["Next.js", "React", "TypeScript", "Tailwind CSS", "RAG", "LLM", "FAISS", "Vercel"],
                   icon: Rocket,
                   features: [
                     "Modern UI with elegant design system",
@@ -280,6 +280,7 @@ export default function Portfolio() {
                     "Dark mode support with theme persistence",
                   ],
                   githubLink: "https://github.com/jobayertalha/Personal-portfolio-site",
+                  liveLink: "https://lnkd.in/g8yKT6MT",
                   image: "/colorful-gradient-portfolio.png",
                 },
                 {
