@@ -175,7 +175,7 @@ export default function Portfolio() {
                 </h1>
 
                 <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-                  Undergraduate CSE student focused on building{" "}
+                 C.S.E Graduate CSE focused on building{" "}
                   <span className="font-semibold text-slate-900 dark:text-white">scalable</span> and{" "}
                   <span className="font-semibold text-slate-900 dark:text-white">real-world</span> solutions using
                   ML/AI and modern software engineering
@@ -201,7 +201,7 @@ export default function Portfolio() {
                   asChild
                 >
                   <Link
-                    href="https://drive.google.com/file/d/1F3F8PtwVdqyIy36ZjELS9gWOevQLqVzZ/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1XgOmrDNbhIeRoIThSg5HlvsqMrNMwKdB/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
