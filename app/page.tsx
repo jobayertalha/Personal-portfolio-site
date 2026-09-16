@@ -40,6 +40,7 @@ import {
   Sun,
   Brain,
   Sparkles,
+  Shield,
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -173,13 +174,12 @@ export default function Portfolio() {
                   </span>
                 </h1>
 
-              <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-  Undergraduate CSE student focused on building{" "}
-  <span className="font-semibold text-slate-900 dark:text-white">scalable</span> and{" "}
-  <span className="font-semibold text-slate-900 dark:text-white">real-world</span> solutions using
-  ML/AI and modern software engineering
-</p>
-
+                <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
+                  Undergraduate CSE student focused on building{" "}
+                  <span className="font-semibold text-slate-900 dark:text-white">scalable</span> and{" "}
+                  <span className="font-semibold text-slate-900 dark:text-white">real-world</span> solutions using
+                  ML/AI and modern software engineering
+                </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -251,6 +251,32 @@ export default function Portfolio() {
 
             <div className="grid gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
               {[
+                {
+                  title: "Cross-Domain NIDS",
+                  description:
+                    "A research-oriented Network Intrusion Detection System that performs cross-domain intrusion detection using transfer learning, BiC (Bias Correction), and Target Domain Neighborhood Refinement (TDNR). Includes a deployable web platform for PCAP/PCAPNG analysis.",
+                  tags: [
+                    "React",
+                    "TypeScript",
+                    "Vite",
+                    "FastAPI",
+                    "PyTorch",
+                    "Scapy",
+                    "TDNR",
+                  ],
+                  icon: Shield,
+                  features: [
+                    "PCAP / PCAPNG based network intrusion analysis",
+                    "Lopez17CNN with 200-dimensional latent representation",
+                    "BiC (Bias Correction) for incremental classification",
+                    "Target Domain Neighborhood Refinement (TDNR)",
+                    "React + Vite frontend with FastAPI backend",
+                    "Deployed using Vercel and Render",
+                  ],
+                  githubLink: "https://github.com/jobayertalha/cross-domain-nids",
+                  liveLink: "https://cross-domain-nids.vercel.app/",
+                  image: "/cross-domain-nids.png",
+                },
                 {
                   title: "CareerVector - AI Career Analysis App",
                   description:
