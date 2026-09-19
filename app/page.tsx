@@ -41,21 +41,51 @@ import {
   Brain,
   Sparkles,
   Shield,
+  Menu,
+  X,
 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import type React from "react"
 import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
+
+const navItems = [
+  { name: "About", icon: User },
+  { name: "Projects", icon: Code },
+  { name: "Experience", icon: Briefcase },
+  { name: "Activities", icon: Sparkles },
+  { name: "Certifications", icon: Award },
+  { name: "Contact", icon: MessageCircle },
+]
+
+const CONTACT_EMAIL = "jobayertalha2020@gmail.com"
 
 export default function Portfolio() {
   const [isVisible, setIsVisible] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [form, setForm] = useState({ firstName: "", lastName: "", email: "", subject: "", message: "" })
   const { theme, setTheme } = useTheme()
 
   useEffect(() => {
     setMounted(true)
     setIsVisible(true)
   }, [])
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    setForm((prev) => ({ ...prev, [id]: value }))
+  }
+
+  // No backend: opens the visitor's mail app with the message pre-filled
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const name = `${form.firstName} ${form.lastName}`.trim()
+    const subject = form.subject || `Portfolio message from ${name || "a visitor"}`
+    const body = `${form.message}\n\n${name}\n${form.email}`
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  }
 
   const techStack = [
     { name: "React", icon: Code, color: "text-blue-500" },
@@ -66,6 +96,9 @@ export default function Portfolio() {
     { name: "Scikit-learn", icon: TrendingUp, color: "text-green-500" },
     { name: "Neural Networks", icon: Brain, color: "text-pink-500" },
   ]
+
+  const iconLinkClass =
+    "p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-950 dark:via-blue-950 dark:to-indigo-950 transition-colors duration-500">
@@ -91,14 +124,7 @@ export default function Portfolio() {
           </Link>
 
           <nav className="hidden md:flex items-center space-x-1">
-            {[
-              { name: "About", icon: User },
-              { name: "Projects", icon: Code },
-              { name: "Experience", icon: Briefcase },
-              { name: "Activities", icon: Sparkles },
-              { name: "Certifications", icon: Award },
-              { name: "Contact", icon: MessageCircle },
-            ].map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={`#${item.name.toLowerCase()}`}
@@ -114,19 +140,28 @@ export default function Portfolio() {
             <div className="hidden sm:flex items-center space-x-2">
               <Link
                 href="https://github.com/jobayertalha"
-                className="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className={iconLinkClass}
               >
                 <Github className="h-5 w-5" />
               </Link>
               <Link
                 href="https://www.linkedin.com/in/talha-jobayer-696a74237/"
-                className="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className={iconLinkClass}
               >
                 <Linkedin className="h-5 w-5" />
               </Link>
               <Link
                 href="https://www.kaggle.com/talhajobayer"
-                className="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Kaggle"
+                className={iconLinkClass}
               >
                 <BarChart3 className="h-5 w-5" />
               </Link>
@@ -136,20 +171,49 @@ export default function Portfolio() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="rounded-lg"
+                className="relative rounded-lg"
               >
                 <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>
               </Button>
             )}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden rounded-lg"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
           </div>
         </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <nav className="md:hidden border-t border-slate-200/50 dark:border-slate-800/50">
+            <div className="container flex flex-col py-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={`#${item.name.toLowerCase()}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300 flex items-center gap-3"
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </nav>
+        )}
       </header>
 
       <main className="relative">
         {/* Hero Section */}
-        <section id="about" className="min-h-screen flex items-center justify-center py-20">
+        <section id="about" className="relative min-h-screen flex items-center justify-center py-20">
           <div className="container px-4 md:px-6">
             <div
               className={`max-w-4xl mx-auto text-center space-y-8 transition-all duration-1000 ${
@@ -175,7 +239,7 @@ export default function Portfolio() {
                 </h1>
 
                 <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-                 C.S.E Graduate CSE focused on building{" "}
+                  CSE graduate focused on building{" "}
                   <span className="font-semibold text-slate-900 dark:text-white">scalable</span> and{" "}
                   <span className="font-semibold text-slate-900 dark:text-white">real-world</span> solutions using
                   ML/AI and modern software engineering
@@ -201,7 +265,7 @@ export default function Portfolio() {
                   asChild
                 >
                   <Link
-                    href="https://drive.google.com/file/d/1XgOmrDNbhIeRoIThSg5HlvsqMrNMwKdB/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1Qjmlox4a-LOj1jJ6afEqIayihxeJd2_0/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
@@ -255,15 +319,7 @@ export default function Portfolio() {
                   title: "Cross-Domain NIDS",
                   description:
                     "A research-oriented Network Intrusion Detection System that performs cross-domain intrusion detection using transfer learning, BiC (Bias Correction), and Target Domain Neighborhood Refinement (TDNR). Includes a deployable web platform for PCAP/PCAPNG analysis.",
-                  tags: [
-                    "React",
-                    "TypeScript",
-                    "Vite",
-                    "FastAPI",
-                    "PyTorch",
-                    "Scapy",
-                    "TDNR",
-                  ],
+                  tags: ["React", "TypeScript", "Vite", "FastAPI", "PyTorch", "Scapy", "TDNR"],
                   icon: Shield,
                   features: [
                     "PCAP / PCAPNG based network intrusion analysis",
@@ -354,7 +410,7 @@ export default function Portfolio() {
                   githubLink: "https://www.kaggle.com/code/talhajobayer/benagali-sarcasm-detection",
                   image: "/bangla-sarcasm-detection.png",
                 },
-              ].map((project, index) => (
+              ].map((project) => (
                 <Card
                   key={project.title}
                   className="group bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 hover:shadow-xl overflow-hidden"
@@ -365,7 +421,7 @@ export default function Portfolio() {
                       width={600}
                       height={400}
                       alt={project.title}
-                      className="aspect-video object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute top-4 right-4 p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-lg">
                       <project.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
@@ -409,7 +465,12 @@ export default function Portfolio() {
                         className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white"
                         asChild
                       >
-                        <Link href={project.githubLink} target="_blank" className="flex items-center justify-center gap-2">
+                        <Link
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2"
+                        >
                           <Github className="h-4 w-4" />
                           {project.liveLink ? "GitHub" : "View"}
                           <ExternalLink className="h-3 w-3" />
@@ -420,7 +481,12 @@ export default function Portfolio() {
                           className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white"
                           asChild
                         >
-                          <Link href={project.liveLink} target="_blank" className="flex items-center justify-center gap-2">
+                          <Link
+                            href={project.liveLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2"
+                          >
                             <Rocket className="h-4 w-4" />
                             Live Demo
                             <ExternalLink className="h-3 w-3" />
@@ -452,9 +518,24 @@ export default function Portfolio() {
             <div className="max-w-4xl mx-auto space-y-6">
               {[
                 {
+                  title: "Research Intern",
+                  company: "ELITE Research Lab",
+                  period: "June 2026 - Present",
+                  achievements: [
+                    "Conducting research and development in AI and Machine Learning, contributing to ongoing research projects and experimental studies",
+                    "Working with experienced researchers on literature review, model development, experimentation, and research-oriented problem solving",
+                  ],
+                  tags: ["AI", "Machine Learning", "Research"],
+                  icon: Brain,
+                  status: "Ongoing",
+                  image: "/elitelab.png",
+                  imageAlt: "ELITE Research Lab offer letter for the Research Intern position",
+                  imageCaption: "Offer letter - ELITE Research Lab",
+                },
+                {
                   title: "Industrial Attachment",
                   company: "Frontier Semiconductor BD Ltd",
-                  period: "Industrial Attachment Program",
+                  period: "2 Weeks",
                   location: "ECB Chottor, Dhaka",
                   achievements: [
                     "Completed comprehensive industrial attachment program in semiconductor manufacturing",
@@ -480,9 +561,9 @@ export default function Portfolio() {
                   icon: Code,
                   status: "Completed",
                 },
-              ].map((job, index) => (
+              ].map((job) => (
                 <Card
-                  key={job.title}
+                  key={job.company}
                   className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300"
                 >
                   <CardHeader>
@@ -503,23 +584,51 @@ export default function Portfolio() {
                       <div className="text-right">
                         <Badge
                           variant="secondary"
-                          className="mb-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
+                          className={`mb-2 ${
+                            job.status === "Ongoing"
+                              ? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                              : "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
+                          }`}
                         >
-                          <CheckCircle className="h-3 w-3 mr-1" />
+                          {job.status === "Ongoing" ? (
+                            <TrendingUp className="h-3 w-3 mr-1" />
+                          ) : (
+                            <CheckCircle className="h-3 w-3 mr-1" />
+                          )}
                           {job.status}
                         </Badge>
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center justify-end gap-2 text-sm text-slate-600 dark:text-slate-400">
                           <Clock className="h-4 w-4" />
                           {job.period}
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mt-1">
-                          <MapPin className="h-4 w-4" />
-                          {job.location}
-                        </div>
+                        {job.location && (
+                          <div className="flex items-center justify-end gap-2 text-sm text-slate-600 dark:text-slate-400 mt-1">
+                            <MapPin className="h-4 w-4" />
+                            {job.location}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
+                    {job.image && (
+                      <figure className="mb-5 mx-auto max-w-md">
+                        <div className="overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                          <Image
+                            src={job.image}
+                            width={508}
+                            height={505}
+                            alt={job.imageAlt || job.title}
+                            className="w-full h-auto"
+                          />
+                        </div>
+                        {job.imageCaption && (
+                          <figcaption className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">
+                            {job.imageCaption}
+                          </figcaption>
+                        )}
+                      </figure>
+                    )}
                     <ul className="space-y-2 mb-4">
                       {job.achievements.map((achievement, achIndex) => (
                         <li
@@ -549,6 +658,7 @@ export default function Portfolio() {
           </div>
         </section>
 
+        {/* Activities Section */}
         <section id="activities" className="py-24 bg-white/50 dark:bg-slate-900/50">
           <div className="container px-4 md:px-6">
             <div className="max-w-2xl mx-auto text-center mb-16">
@@ -578,7 +688,7 @@ export default function Portfolio() {
                   icon: Target,
                   status: "Completed",
                 },
-              ].map((activity, index) => (
+              ].map((activity) => (
                 <Card
                   key={activity.title}
                   className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300"
@@ -606,11 +716,11 @@ export default function Portfolio() {
                           <CheckCircle className="h-3 w-3 mr-1" />
                           {activity.status}
                         </Badge>
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center justify-end gap-2 text-sm text-slate-600 dark:text-slate-400">
                           <Clock className="h-4 w-4" />
                           {activity.period}
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        <div className="flex items-center justify-end gap-2 text-sm text-slate-600 dark:text-slate-400 mt-1">
                           <MapPin className="h-4 w-4" />
                           {activity.location}
                         </div>
@@ -648,7 +758,7 @@ export default function Portfolio() {
         </section>
 
         {/* Certifications Section */}
-        <section id="certifications" className="py-24 bg-white/50 dark:bg-slate-900/50">
+        <section id="certifications" className="py-24">
           <div className="container px-4 md:px-6">
             <div className="max-w-2xl mx-auto text-center mb-16">
               <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-0 mb-4">
@@ -725,7 +835,7 @@ export default function Portfolio() {
                   tags: ["Machine Learning", "Python", "Scikit-learn"],
                   type: "Certification",
                 },
-              ].map((cert, index) => (
+              ].map((cert) => (
                 <Card
                   key={cert.title}
                   className="bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300"
@@ -754,7 +864,7 @@ export default function Portfolio() {
                         </CardDescription>
                       </div>
                       <div className="text-right">
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                        <div className="flex items-center justify-end gap-2 text-sm text-slate-600 dark:text-slate-400">
                           <Clock className="h-4 w-4" />
                           {cert.date}
                         </div>
@@ -790,6 +900,7 @@ export default function Portfolio() {
                         <Link
                           href={cert.verificationLink}
                           target="_blank"
+                          rel="noopener noreferrer"
                           className="flex items-center justify-center gap-2"
                         >
                           <ExternalLink className="h-4 w-4" />
@@ -805,7 +916,7 @@ export default function Portfolio() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-24">
+        <section id="contact" className="py-24 bg-white/50 dark:bg-slate-900/50">
           <div className="container px-4 md:px-6">
             <div className="max-w-2xl mx-auto text-center mb-16">
               <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-0 mb-4">
@@ -829,24 +940,30 @@ export default function Portfolio() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {[
-                      {
-                        icon: Mail,
-                        text: "jobayertalha2020@gmail.com",
-                        href: "mailto:jobayertalha2020@gmail.com",
-                      },
+                      { icon: Mail, text: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
                       { icon: Phone, text: "01721577792", href: "tel:01721577792" },
-                      { icon: MapPin, text: "Rajshahi, Bangladesh", href: "#" },
-                    ].map((contact, index) => (
-                      <div
-                        key={contact.text}
-                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-300"
-                      >
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                          <contact.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      { icon: MapPin, text: "Rajshahi, Bangladesh", href: undefined },
+                    ].map((contact) => {
+                      const rowClass =
+                        "flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors duration-300"
+                      const row = (
+                        <>
+                          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                            <contact.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                          </div>
+                          <span className="text-slate-700 dark:text-slate-300 font-medium">{contact.text}</span>
+                        </>
+                      )
+                      return contact.href ? (
+                        <a key={contact.text} href={contact.href} className={rowClass}>
+                          {row}
+                        </a>
+                      ) : (
+                        <div key={contact.text} className={rowClass}>
+                          {row}
                         </div>
-                        <span className="text-slate-700 dark:text-slate-300 font-medium">{contact.text}</span>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </CardContent>
                 </Card>
 
@@ -874,7 +991,12 @@ export default function Portfolio() {
                         asChild
                         className="flex-1 min-w-[140px] bg-transparent"
                       >
-                        <Link href={social.href} target="_blank" className="flex items-center gap-2">
+                        <Link
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2"
+                        >
                           <social.icon className="h-4 w-4" />
                           {social.label}
                         </Link>
@@ -892,24 +1014,29 @@ export default function Portfolio() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
+                  <form className="space-y-4" onSubmit={handleSubmit}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="first-name" className="text-slate-700 dark:text-slate-300">
+                        <Label htmlFor="firstName" className="text-slate-700 dark:text-slate-300">
                           First name
                         </Label>
                         <Input
-                          id="first-name"
+                          id="firstName"
+                          required
+                          value={form.firstName}
+                          onChange={handleChange}
                           placeholder="Enter your first name"
                           className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="last-name" className="text-slate-700 dark:text-slate-300">
+                        <Label htmlFor="lastName" className="text-slate-700 dark:text-slate-300">
                           Last name
                         </Label>
                         <Input
-                          id="last-name"
+                          id="lastName"
+                          value={form.lastName}
+                          onChange={handleChange}
                           placeholder="Enter your last name"
                           className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                         />
@@ -921,8 +1048,11 @@ export default function Portfolio() {
                       </Label>
                       <Input
                         id="email"
-                        placeholder="Enter your email"
+                        required
                         type="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="Enter your email"
                         className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                       />
                     </div>
@@ -932,6 +1062,8 @@ export default function Portfolio() {
                       </Label>
                       <Input
                         id="subject"
+                        value={form.subject}
+                        onChange={handleChange}
                         placeholder="Enter the subject"
                         className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                       />
@@ -942,6 +1074,9 @@ export default function Portfolio() {
                       </Label>
                       <Textarea
                         id="message"
+                        required
+                        value={form.message}
+                        onChange={handleChange}
                         placeholder="Enter your message"
                         className="min-h-[120px] bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
                       />
@@ -970,16 +1105,19 @@ export default function Portfolio() {
           </p>
           <div className="flex items-center space-x-4">
             {[
-              { href: "https://github.com/jobayertalha", icon: Github },
-              { href: "https://www.linkedin.com/in/talha-jobayer-696a74237/", icon: Linkedin },
-              { href: "https://www.facebook.com/talha.jobayer.39/", icon: Facebook },
-              { href: "https://www.kaggle.com/talhajobayer", icon: BarChart3 },
-              { href: "mailto:jobayertalha2020@gmail.com", icon: Mail },
+              { href: "https://github.com/jobayertalha", icon: Github, label: "GitHub" },
+              { href: "https://www.linkedin.com/in/talha-jobayer-696a74237/", icon: Linkedin, label: "LinkedIn" },
+              { href: "https://www.facebook.com/talha.jobayer.39/", icon: Facebook, label: "Facebook" },
+              { href: "https://www.kaggle.com/talhajobayer", icon: BarChart3, label: "Kaggle" },
+              { href: `mailto:${CONTACT_EMAIL}`, icon: Mail, label: "Email" },
             ].map((social) => (
               <Link
                 key={social.href}
                 href={social.href}
-                className="p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+                aria-label={social.label}
+                target={social.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel={social.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                className={iconLinkClass}
               >
                 <social.icon className="h-5 w-5" />
               </Link>
