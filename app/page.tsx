@@ -265,7 +265,7 @@ export default function Portfolio() {
                   asChild
                 >
                   <Link
-                    href="https://drive.google.com/file/d/1Qjmlox4a-LOj1jJ6afEqIayihxeJd2_0/view?usp=sharing"
+                    href="/cv__Talha_S_W.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
@@ -521,7 +521,7 @@ export default function Portfolio() {
                   title: "Research Intern",
                   company: "ELITE Research Lab",
                   period: "June 2026 - Present",
-                  location: "Queens,NY,USA","Dhanmondi,Dhaka",
+                  location: "Dhanmondi, Dhaka",
                   achievements: [
                     "Conducting research and development in AI and Machine Learning, contributing to ongoing research projects and experimental studies",
                     "Working with experienced researchers on literature review, model development, experimentation, and research-oriented problem solving",
@@ -621,6 +621,7 @@ export default function Portfolio() {
                             height={505}
                             alt={job.imageAlt || job.title}
                             className="w-full h-auto"
+                            unoptimized
                           />
                         </div>
                         {job.imageCaption && (
