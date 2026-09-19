@@ -521,6 +521,7 @@ export default function Portfolio() {
                   title: "Research Intern",
                   company: "ELITE Research Lab",
                   period: "June 2026 - Present",
+                  location: "Queens,NY,USA","Dhanmondi,Dhaka",
                   achievements: [
                     "Conducting research and development in AI and Machine Learning, contributing to ongoing research projects and experimental studies",
                     "Working with experienced researchers on literature review, model development, experimentation, and research-oriented problem solving",
@@ -528,7 +529,7 @@ export default function Portfolio() {
                   tags: ["AI", "Machine Learning", "Research"],
                   icon: Brain,
                   status: "Ongoing",
-                  image: "/elitelab.png",
+                  image: "/elitelab.jpg",
                   imageAlt: "ELITE Research Lab offer letter for the Research Intern position",
                   imageCaption: "Offer letter - ELITE Research Lab",
                 },
