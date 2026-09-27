@@ -314,7 +314,8 @@ export default function Portfolio() {
             </div>
 
             <div className="grid gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
-              {[{
+              {[
+                {
                   title: "CareerVector - AI Career Analysis App",
                   description:
                     "A RAG-based AI career assistant that analyzes CVs against real LinkedIn job descriptions (Phitron AI/ML Job Market 2026). Provides semantic skill matching, career roadmaps, and an AI/ML readiness quiz with realistic match scores and actionable insights.",
@@ -349,7 +350,7 @@ export default function Portfolio() {
                     "Sequential research workflow and task tracking",
                     "Conference and submission deadline management",
                     "Paper-specific AI Research Progress Insight",
-                    "AI-powered What’s Next? task suggestions",
+                    "AI-powered What's Next? task suggestions",
                     "React + Vite frontend with FastAPI backend",
                     "PostgreSQL database with Supabase",
                     "Deployed with Vercel and Cloudflare Workers",
@@ -757,33 +758,4 @@ export default function Portfolio() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 mb-4">
-                      {activity.achievements.map((achievement, achIndex) => (
-                        <li
-                          key={achIndex}
-                          className="flex items-start gap-2 text-slate-600 dark:text-slate-400 text-sm"
-                        >
-                          <ArrowRight className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                          {achievement}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="flex flex-wrap gap-2">
-                      {activity.tags.map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant="secondary"
-                          className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Cert
+                    <ul className="space-y-2
