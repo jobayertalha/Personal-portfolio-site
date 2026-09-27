@@ -78,7 +78,6 @@ export default function Portfolio() {
     setForm((prev) => ({ ...prev, [id]: value }))
   }
 
-  // No backend: opens the visitor's mail app with the message pre-filled
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const name = `${form.firstName} ${form.lastName}`.trim()
@@ -191,7 +190,6 @@ export default function Portfolio() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
           <nav className="md:hidden border-t border-slate-200/50 dark:border-slate-800/50">
             <div className="container flex flex-col py-2">
@@ -335,15 +333,7 @@ export default function Portfolio() {
                   title: "ResearchFlow - Research Task Manager",
                   description:
                     "A research-focused task management platform that helps researchers manage multiple papers with independent workflows, task progress, conference deadlines, and lightweight AI-powered research insights.",
-                  tags: [
-                    "React",
-                    "Vite",
-                    "FastAPI",
-                    "PostgreSQL",
-                    "Supabase",
-                    "Cloudflare Workers",
-                    "Groq AI",
-                  ],
+                  tags: ["React", "Vite", "FastAPI", "PostgreSQL", "Supabase", "Cloudflare Workers", "Groq AI"],
                   icon: Brain,
                   features: [
                     "Manage multiple research papers independently",
@@ -758,4 +748,35 @@ export default function Portfolio() {
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2
+                    <ul className="space-y-2 mb-4">
+                      {activity.achievements.map((achievement, achIndex) => (
+                        <li
+                          key={achIndex}
+                          className="flex items-start gap-2 text-slate-600 dark:text-slate-400 text-sm"
+                        >
+                          <ArrowRight className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex flex-wrap gap-2">
+                      {activity.tags.map((tag) => (
+                        <Badge
+                          key={tag}
+                          variant="secondary"
+                          className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Certifications Section */}
+        <section id="certifications" className="py-24">
+          <div
