@@ -263,7 +263,7 @@ export default function Portfolio() {
                   asChild
                 >
                   <Link
-                    href="/cv__Talha_S_W.pdf"
+                    href="/cv_Talha_Jobayer.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
