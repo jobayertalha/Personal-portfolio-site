@@ -764,5 +764,4 @@ export default function Portfolio() {
                           <MapPin className="h-4 w-4" />
                           {activity.location}
                         </div>
-                      </div>
-                    </div
+                      </div
